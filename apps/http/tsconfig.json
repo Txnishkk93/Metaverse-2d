@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+
+    /* Modules */
+    "rootDir": "./src",
+    "module": "NodeNext",
+    "moduleDetection": "force",
+    "moduleResolution": "NodeNext",
+    "outDir": "./dist",
+
+    /* ✅ ADD THESE TWO */
+    "baseUrl": ".",
+    "paths": {
+      "@repo/db": ["../packages/db/src"]
+    },
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}

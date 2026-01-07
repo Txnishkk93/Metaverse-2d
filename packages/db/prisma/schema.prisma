@@ -1,0 +1,82 @@
+// This is your Prisma schema file
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator clientPg {
+  provider = "prisma-client-js"
+  output   = "./generated/clientPg" // relative to the prisma folder
+}
+
+datasource db {
+  provider = "postgresql" // or your DB
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(cuid())
+  username String  @unique
+  password String
+  avatarId String?
+  role     Role
+  space    Space[]
+  avatar   Avatar? @relation(fields: [avatarId], references: [id])
+}
+
+model Space {
+  id        String          @id @default(cuid())
+  name      String
+  width     Int
+  height    Int?
+  thumbnail String?
+  creatorId String
+  creator   User            @relation(fields: [creatorId], references: [id])
+  elements  spaceElements[]
+}
+
+model spaceElements {
+  id        String  @id @default(cuid())
+  elementId String
+  spaceId   String
+  x         Int
+  y         Int
+  space     Space   @relation(fields: [spaceId], references: [id])
+  element   Element @relation(fields: [elementId], references: [id])
+}
+
+model Element {
+  id            String          @id @default(cuid())
+  width         Int
+  height        Int
+  imageUrl      String
+  spaceElements spaceElements[]
+  mapElements   mapElements[]
+}
+
+model Map {
+  id          String        @id @default(cuid())
+  width       Int
+  height      Int
+  name        String
+  mapElements mapElements[]
+}
+
+model mapElements {
+  id        String  @id @default(cuid())
+  mapId     String
+  elementId String?
+  x         Int?
+  y         Int?
+  map       Map      @relation(fields: [mapId], references: [id])
+  element   Element? @relation(fields: [elementId], references: [id])
+}
+
+model Avatar {
+  id       String  @id @default(cuid())
+  imageUrl String?
+  name     String?
+  users    User[]
+}
+
+enum Role {
+  Admin
+  User
+}

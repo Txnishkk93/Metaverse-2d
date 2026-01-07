@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    /* Language & Module */
+    "target": "ES2022",
+    "module": "Nodenext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Project structure */
+    "rootDir": "./src",
+    "outDir": "dist",
+    "composite": true,
+
+    /* Type checking */
+    "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+
+    /* Output */
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
+  },
+  "include": ["src", "src/prisma/generated/clientPg"],
+  "exclude": ["node_modules", "dist"]
+}
