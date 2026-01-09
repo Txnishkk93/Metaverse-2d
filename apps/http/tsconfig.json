@@ -12,7 +12,7 @@
     /* ✅ ADD THESE TWO */
     "baseUrl": ".",
     "paths": {
-      "@repo/db": ["../packages/db/src"]
+      "@repo/db": ["../packages/db/src/*"]
     },
 
     "esModuleInterop": true,

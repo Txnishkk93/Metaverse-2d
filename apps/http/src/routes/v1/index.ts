@@ -4,7 +4,7 @@ import { spaceRouter } from "./space";
 import { adminRouter } from "./admin";
 import { SigninSchema, SignupSchema } from "../../types";
 import {hash, compare} from "../../scrypt";
-import client from "../../../packages/db/src/index.js";
+import client from "@repo/db/client"; 
 import jwt from "jsonwebtoken";
 import { JWT_PASSWORD } from "../../config";
 
@@ -81,7 +81,7 @@ router.post("/signin", async (req, res) => {
 router.get("/elements", async (req, res) => {
     const elements = await client.element.findMany()
 
-    res.json({elements: elements.map(e => ({
+    res.json({elements: elements.map((e) => ({
         id: e.id,
         imageUrl: e.imageUrl,
         width: e.width,
@@ -92,7 +92,7 @@ router.get("/elements", async (req, res) => {
 
 router.get("/avatars", async (req, res) => {
     const avatars = await client.avatar.findMany()
-    res.json({avatars: avatars.map(x => ({
+    res.json({avatars: avatars.map((x) => ({
         id: x.id,
         imageUrl: x.imageUrl,
         name: x.name

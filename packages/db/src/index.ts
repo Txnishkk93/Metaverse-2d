@@ -1,2 +1,4 @@
-import client from "../../../packages/db/src/index.js";
-export default new PrismaClient();
+import { PrismaClient } from "@prisma/client";
+
+const client = new PrismaClient();
+export default client;

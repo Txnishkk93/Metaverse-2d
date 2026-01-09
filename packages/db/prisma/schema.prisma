@@ -1,14 +1,13 @@
 // This is your Prisma schema file
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-generator clientPg {
+generator client {
   provider = "prisma-client-js"
-  output   = "./generated/clientPg" // relative to the prisma folder
 }
 
 datasource db {
-  provider = "postgresql" // or your DB
-  url      = env("DATABASE_URL")
+  provider = "postgresql" // or "mysql" or "sqlite"
+  url      = env("DATABASE_URL") // make sure you have DATABASE_URL in .env
 }
 
 model User {
