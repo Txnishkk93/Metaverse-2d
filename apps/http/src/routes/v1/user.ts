@@ -6,56 +6,50 @@ import { userMiddleware } from "../../middleware/user";
 export const userRouter = Router();
 
 userRouter.post("/metadata", userMiddleware, async (req, res) => {
-    const parsedData = UpdateMetadataSchema.safeParse(req.body);
-
+    const parsedData = UpdateMetadataSchema.safeParse(req.body)
     if (!parsedData.success) {
-        console.log("parsed data incorrect");
-        res.status(400).json({ message: "Validation failed" });
-        return;
+        console.log("parsed data incorrect")
+        res.status(400).json({ message: "Validation failed" })
+        return
+    }
+    // check avatar exists first
+    const avatar = await client.avatar.findFirst({
+        where: { id: parsedData.data.avatarId }
+    });
+
+    if (!avatar) {
+        return res.status(400).json({ message: "Avatar not found" });
     }
 
-    try {
-        await client.user.update({
-            where: {
-                id: req.userId as string
-            },
-            data: {
-                avatarId: parsedData.data.avatarId
-            }
-        });
+    // then update
+    await client.user.update({
+        where: { id: req.userId },
+        data: { avatarId: parsedData.data.avatarId }
+    });
 
-        res.json({ message: "Metadata updated" });
-    } catch (e) {
-        console.log(e);
-        res.status(400).json({ message: "Internal server error" });
-    }
-});
+    res.json({ message: "Metadata updated" });
+
+})
 
 userRouter.get("/metadata/bulk", async (req, res) => {
     const userIdString = (req.query.ids ?? "[]") as string;
-
-    const userIds = userIdString
-        .slice(1, userIdString.length - 1)
-        .split(",")
-        .map(id => id.trim())
-        .filter(Boolean);
-
+    const userIds = (userIdString).slice(1, userIdString?.length - 1).split(",");
+    console.log(userIds)
     const metadata = await client.user.findMany({
         where: {
             id: {
                 in: userIds
             }
-        },
-        select: {
+        }, select: {
             avatar: true,
             id: true
         }
-    });
+    })
 
     res.json({
         avatars: metadata.map(m => ({
             userId: m.id,
             avatarId: m.avatar?.imageUrl
         }))
-    });
-});
+    })
+})

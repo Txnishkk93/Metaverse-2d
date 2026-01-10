@@ -3,7 +3,7 @@ import z from "zod";
 export const SignupSchema = z.object({
     username: z.string(),
     password: z.string(),
-    type: z.enum(["user", "admin"]),
+    type: z.enum(["user", "admin", "USER", "ADMIN"]),
 })
 
 export const SigninSchema = z.object({
@@ -54,7 +54,7 @@ export const CreateMapSchema = z.object({
     name: z.string(),
     defaultElements: z.array(z.object({
         elementId: z.string(),
-        x: z.number(),  
+        x: z.number(),
         y: z.number(),
     }))
 })
@@ -62,9 +62,9 @@ export const CreateMapSchema = z.object({
 
 declare global {
     namespace Express {
-      export interface Request {
-        role?: "Admin" | "User";
-        userId?: string;
-      }
+        export interface Request {
+            role?: "Admin" | "User";
+            userId?: string;
+        }
     }
 }

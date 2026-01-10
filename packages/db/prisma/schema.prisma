@@ -42,10 +42,11 @@ model spaceElements {
 }
 
 model Element {
-  id            String          @id @default(cuid())
-  width         Int
-  height        Int
-  imageUrl      String
+  id       String  @id @default(cuid())
+  imageUrl String
+  width    Int
+  height   Int
+  static    Boolean @default(false)
   spaceElements spaceElements[]
   mapElements   mapElements[]
 }
@@ -59,7 +60,7 @@ model Map {
 }
 
 model mapElements {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   mapId     String
   elementId String?
   x         Int?

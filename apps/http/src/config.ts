@@ -1,1 +1,1 @@
-export const JWT_PASSWORD="1234chdbc"
+export const JWT_SECRET="1234chdbc"

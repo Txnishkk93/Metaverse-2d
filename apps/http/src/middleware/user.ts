@@ -1,25 +1,39 @@
-
 import jwt from "jsonwebtoken";
-import { JWT_PASSWORD } from "../config";
+import { JWT_SECRET } from "../config";
 import { NextFunction, Request, Response } from "express";
 
-export const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const header = req.headers["authorization"];
-    const token = header?.split(" ")[1];
-    console.log(req.route.path)
-    console.log(token)
-
-    if (!token) {
-        res.status(403).json({ message: "Unauthorized" })
-        return
+declare global {
+  namespace Express {
+    interface Request {
+      userId?: string;
+      type?: "ADMIN" | "USER";
     }
-
-    try {
-        const decoded = jwt.verify(token, JWT_PASSWORD) as { role: string, userId: string }
-        req.userId = decoded.userId
-        next()
-    } catch (e) {
-        res.status(401).json({ message: "Unauthorized" })
-        return
-    }
+  }
 }
+
+export const userMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const header = req.headers.authorization;
+  const token = header?.split(" ")[1];
+
+  if (!token) {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as {
+      type: "ADMIN" | "USER",
+      userId: string
+    };
+
+    req.userId = decoded.userId;
+    req.type = decoded.type;   // ✅ important
+    next();
+
+  } catch (e) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+};
