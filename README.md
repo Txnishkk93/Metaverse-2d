@@ -1,3 +1,7 @@
+Design a simple 2D metaverse frontend for a web app. Include a clean user interface showing users, spaces, and interactive buttons, keeping it minimal but functional. The layout should reflect a modern dashboard for exploring and interacting in the 2D metaverse
+https://claude.ai/public/artifacts/b6f52e4f-8f5d-4a5c-924e-592e5c6413b6
+
+
 # Turborepo starter
 
 This Turborepo starter is maintained by the Turborepo core team.
