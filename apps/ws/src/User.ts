@@ -3,7 +3,7 @@ import { RoomManager } from "./RoomManager";
 import { OutgoingMessage } from "./types";
 import client from "@repo/db/client";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { JWT_PASSWORD } from "./config";
+import { JWT_SECRET } from "./config";
 
 // Utility function to generate random IDs
 function getRandomString(length: number) {
@@ -44,7 +44,7 @@ export class User {
                         const spaceId = parsedData.payload.spaceId;
                         const token = parsedData.payload.token;
 
-                        const decoded = jwt.verify(token, JWT_PASSWORD) as JwtPayload;
+                        const decoded = jwt.verify(token, JWT_SECRET) as JwtPayload;
                         const userId = decoded.userId;
                         if (!userId) {
                             this.ws.close();
