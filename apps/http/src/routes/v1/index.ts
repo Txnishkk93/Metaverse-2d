@@ -18,9 +18,9 @@ router.post("/signup", async (req, res) => {
 
     const hashedPassword = await hash(parsedData.data.password);
 
-    // Map input type to Prisma enum Role
-    const role =
-        parsedData.data.type.toLowerCase() === "admin" ? "Admin" : "User";
+    // Accept both 'type' and 'userType' from request
+    const userTypeValue = parsedData.data.userType || parsedData.data.type || 'user';
+    const role = userTypeValue.toLowerCase() === "admin" ? "Admin" : "User";
 
     try {
         const user = await client.user.create({
@@ -38,8 +38,6 @@ router.post("/signup", async (req, res) => {
         throw e;
     }
 });
-
-
 
 router.post("/signin", async (req, res) => {
     const parsedData = SigninSchema.safeParse(req.body);

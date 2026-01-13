@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Twitter/X Dark Theme + Metaverse Gaming Style */
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 220 10% 9%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 220 10% 9%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 204 90% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 10% 14%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 10% 14%;
+    --muted-foreground: 220 10% 60%;
+
+    --accent: 270 60% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 204 90% 53%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 10% 6%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 204 90% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 10% 14%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 220 10% 20%;
+    --sidebar-ring: 204 90% 53%;
+
+    /* Custom metaverse colors */
+    --neon-blue: 204 90% 53%;
+    --neon-purple: 270 60% 50%;
+    --panel: 220 10% 9%;
+    --panel-border: 220 10% 20%;
+  }
+
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 220 10% 9%;
+    --card-foreground: 0 0% 100%;
+    --popover: 220 10% 9%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 204 90% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 10% 14%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 220 10% 14%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 270 60% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 204 90% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glow-blue {
+    box-shadow: 0 0 20px hsl(var(--neon-blue) / 0.3),
+                0 0 40px hsl(var(--neon-blue) / 0.1);
+  }
+  
+  .glow-purple {
+    box-shadow: 0 0 20px hsl(var(--neon-purple) / 0.3),
+                0 0 40px hsl(var(--neon-purple) / 0.1);
+  }
+  
+  .glow-text-blue {
+    text-shadow: 0 0 10px hsl(var(--neon-blue) / 0.5);
+  }
+  
+  .glow-text-purple {
+    text-shadow: 0 0 10px hsl(var(--neon-purple) / 0.5);
+  }
+
+  .game-panel {
+    @apply bg-card border border-border rounded-xl backdrop-blur-sm;
+  }
+  
+  .pixel-grid {
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
