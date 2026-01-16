@@ -14,11 +14,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   const { isAuthenticated, avatarId } = useAuth();
 
   if (!isAuthenticated) {
-    return <Navigate to="/signin" replace />;
+    return <Navigate to="/api/v1/signin" replace />;
   }
 
   if (requireAvatar && !avatarId) {
-    return <Navigate to="/avatar-select" replace />;
+    return <Navigate to="/api/v1/avatar-select" replace />;
   }
 
   return <>{children}</>;
