@@ -1,0 +1,5 @@
+{
+  "outputDirectory": "apps/frontend/dist",
+  "buildCommand": "pnpm turbo run build --filter=vite_react_shadcn_ts",
+  "installCommand": "npm install -g pnpm@8.15.0 && pnpm install"
+}
